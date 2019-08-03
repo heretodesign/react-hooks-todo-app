@@ -4,10 +4,12 @@ import axios from 'axios'
 import { Button, table, thead, tbody, columns, column} from "react-bulma-components/full"
 import 'react-bulma-components/dist/react-bulma-components.min.css'
 
-const Todo = ({todo, index}) => {
-  return(
-    <div className="todo">{todo.text}</div>
-  )
+const Todo = ({todo, index, completeTodo, deleteTodo}) => {
+  return  <div style={{testDecoration: todo.isCompleted ? 'line-through' : ''}}
+    className="todo">
+    {todo.text}
+
+    </div>
 }
 
 const TodoForm = ({addTodo}) => {
@@ -52,6 +54,18 @@ const App =() => {
     setTodos(newTodos);
   }
 
+  const completeTodo = index => {
+    const newTodos = [...todos];
+    newTodos[index].isCompleted = true;
+    setTodos(newTodos);
+  };
+
+  const deleteTodo = index => {
+    const newTodos = [...todos];
+    newTodos.splice(index, 1);
+    setTodos(newTodos);
+  }
+
 
   return (
     <>
@@ -70,10 +84,10 @@ const App =() => {
                 <tbody>
                   {todos.map((todo, index) => (
                     <tr key={index}>
-                      <td><h3><Todo index={index} todo={todo} /></h3></td>
-                      <td><button className="button is-info">isComplete</button></td>
+                      <td><h3><Todo index={index} todo={todo} completeTodo={completeTodo} deleteTodo={deleteTodo} /></h3></td>
+                      <td><button onClick={() => completeTodo(index)} className="button is-info">Complete</button></td>
+                      <td><button onClick={() => deleteTodo(index)} className="button is-danger">Delete</button></td>
 
-                      {/*<td><button onClick={() => {this.addComment(task.id)} } className="button is-info">Comment</button></td>*/}
                     </tr>
                   ))}
                 </tbody>
