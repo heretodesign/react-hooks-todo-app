@@ -3,6 +3,8 @@ import './App.scss';
 import axios from 'axios'
 import { Button, table, thead, tbody, columns, column} from "react-bulma-components/full"
 import 'react-bulma-components/dist/react-bulma-components.min.css'
+import Nav from './components/Nav.js'
+
 
 const Todo = ({todo, index, completeTodo, deleteTodo}) => {
   return  <div style={{testDecoration: todo.isCompleted ? 'line-through' : ''}}
@@ -69,6 +71,7 @@ const App =() => {
 
   return (
     <>
+      <Nav />
       <section className="section App">
         <div className="container">
           <h1 className="title">REACT TODO USING HOOKS TUTORIAL</h1>
